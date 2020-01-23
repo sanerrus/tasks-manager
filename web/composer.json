@@ -1,0 +1,19 @@
+{
+  "name": "sanerrus/task-manager",
+  "description": "task-manager",
+  "type": "project",
+  "authors": [
+    {
+      "name": "Negrey Sergey",
+      "email": "sanerrus@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^7.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "src"
+    }
+  }
+}
