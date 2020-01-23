@@ -14,7 +14,7 @@
 
 **запуск**
 <br>
-cd cd docker/
+cd docker/
 <br>
 docker-compose up --build
 <br>
