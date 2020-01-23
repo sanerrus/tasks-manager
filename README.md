@@ -1,7 +1,10 @@
 # ktTeam
 
 #Docker
-**ВАЖНО:** composer-installer.php может измениться и не даст запустить docker контейнер <br>
+<br>
+**ВАЖНО:** composer-installer.php может измениться и не даст запустить docker контейнер 
+<br>
+
 **требования**
 <br>
 в файле hosts прописать следующие значения
@@ -18,4 +21,3 @@ docker-compose up --build
 <br>
 после чего web приложение станет доступно по url kt-ts.local
 
-**ВАЖНО:** composer-installer.php может измениться и не даст запустить docker контейнер
