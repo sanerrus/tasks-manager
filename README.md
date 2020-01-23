@@ -1,9 +1,8 @@
 # ktTeam
 
 ### Docker
-<br>
+
 **ВАЖНО:** composer-installer.php может измениться и не даст запустить docker контейнер 
-<br>
 
 **требования**
 <br>
