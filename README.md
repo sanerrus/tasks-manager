@@ -24,7 +24,7 @@
 cd docker/
 docker-compose up --build
 ```
-web приложение станет доступно по url `tasks-nanager.local`
+web приложение станет доступно по url http://tasks-manager.local/
 
 ---
 ### Docker
