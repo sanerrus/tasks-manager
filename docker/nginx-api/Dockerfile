@@ -1,7 +1,7 @@
 FROM nginx:alpine
 
 RUN apk update && apk add bash nginx tzdata \
-    && mkdir -p /var/www/ktteam && mkdir -p /run/nginx/
+    && mkdir -p /var/www/tasks-manager && mkdir -p /run/nginx/
 
 ENV TZ=Europe/Moscow
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone

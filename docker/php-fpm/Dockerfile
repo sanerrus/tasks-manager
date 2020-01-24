@@ -4,7 +4,7 @@ ENV TZ=Europe/Moscow
 
 RUN docker-php-ext-install sockets && set -x && addgroup -g 101 -S nginx \
 && adduser -u 101 -D -S -G nginx nginx \
-&& mkdir -p /var/www/ktteam \
+&& mkdir -p /var/www/tasks-manager \
 && apk update \
 && apk add bash tzdata git autoconf gcc g++ make pkgconfig zlib-dev libmemcached-dev curl-dev libpq postgresql-dev \
 libevent-dev icu-dev libidn-dev spl \
@@ -19,5 +19,5 @@ libevent-dev icu-dev libidn-dev spl \
 && docker-php-ext-install pdo_pgsql \
 && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-WORKDIR /var/www/ktteam
+WORKDIR /var/www/tasks-manager
 CMD composer install; /usr/local/sbin/php-fpm -F -R

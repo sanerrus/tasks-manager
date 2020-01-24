@@ -7,18 +7,23 @@ services:
   balancer:
     build: nginx-balancer/
     volumes:
-      - ./nginx-balancer/conf/nginx/ktteam.conf:/etc/nginx/conf.d/ktteam.conf
+      - ./nginx-balancer/conf/nginx/tasks-manager.conf:/etc/nginx/conf.d/tasks-manager.conf
     ports:
       - 80:80
-  web:
-    build: nginx/
+  web-api:
+    build: nginx-api/
     volumes:
-      - ../web:/var/www/ktteam
-      - ./nginx/conf/nginx/ktteam.conf:/etc/nginx/conf.d/ktteam.conf
+      - ../web:/var/www/tasks-manager
+      - ./nginx-api/conf/nginx/tasks-manager.conf:/etc/nginx/conf.d/tasks-manager.conf
       - phpfpm-socket:/var/run
+  web-front:
+    build: nginx-front/
+    volumes:
+      - ../web:/var/www/tasks-manager
+      - ./nginx-front/conf/nginx/tasks-manager.conf:/etc/nginx/conf.d/tasks-manager.conf
   php-fpm:
     build: php-fpm/
     volumes:
-      - ../web:/var/www/ktteam
+      - ../web:/var/www/tasks-manager
       - ./php-fpm/php-fpm.d/zz-docker.conf:/usr/local/etc/php-fpm.d/zz-docker.conf
       - phpfpm-socket:/var/run
