@@ -21,5 +21,5 @@ cd docker/
 <br>
 docker-compose up --build
 <br>
-после чего web приложение станет доступно по url kt-ts.local
+после чего web приложение станет доступно по url tasks-nanager.local
 
