@@ -16,7 +16,7 @@ declare(strict_types=1);
 namespace App;
 
 use App\Configuration\AppConfiguration;
-use App\Entity\Users;
+use App\Entity\TaskExtension;
 use bitExpert\Disco\AnnotationBeanFactory;
 use bitExpert\Disco\BeanFactoryRegistry;
 use Doctrine\ORM\EntityManager;
@@ -62,14 +62,16 @@ class Kernel
         // the connection configuration
         $dbParams = [
             'driver' => 'pdo_mysql',
-            'user' => 'tasks',
-            'password' => 'tasks',
-            'dbname' => 'tasks',
+            'user' => $paramTasksdb['user'],
+            'password' => $paramTasksdb['password'],
+            'dbname' => $paramTasksdb['database'],
+            'host' => $paramTasksdb['host'],
+            'charset' => 'utf8',
         ];
 
         $config = Setup::createAnnotationMetadataConfiguration($paths, $isDevMode, null, null, false);
         $this->em = EntityManager::create($dbParams, $config);
-        var_dump($this->em->getRepository(Users::class)->find(1));
+        var_dump($this->em->getRepository(TaskExtension::class)->find(1));
     }
 
     /**

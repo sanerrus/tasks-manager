@@ -7,10 +7,10 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Users.
  *
- * @ORM\Table(name="users")
+ * @ORM\Table(name="task_statuses")
  * @ORM\Entity
  */
-class Users
+class TaskStatuses
 {
     /**
      * @var int
@@ -28,13 +28,6 @@ class Users
      */
     private $name;
 
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="is_active", type="boolean", nullable=false)
-     */
-    private $isActive;
-
     public function getId(): int
     {
         return $this->id;
@@ -48,15 +41,5 @@ class Users
     public function setName(string $name): void
     {
         $this->name = $name;
-    }
-
-    public function isActive(): bool
-    {
-        return $this->isActive;
-    }
-
-    public function setIsActive(bool $isActive): void
-    {
-        $this->isActive = $isActive;
     }
 }
