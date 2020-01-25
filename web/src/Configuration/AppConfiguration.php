@@ -13,7 +13,6 @@
 
 namespace App\Configuration;
 
-use App\Services\SimpleService;
 use bitExpert\Disco\Annotations\Bean;
 use bitExpert\Disco\Annotations\Configuration;
 
@@ -32,12 +31,15 @@ use bitExpert\Disco\Annotations\Configuration;
 class AppConfiguration
 {
     /**
-     * Тестовый сервис в контейнере.
+     * Бин конфигурационных данных.
      *
      * @Bean
      */
-    public function mySimpleService(): SimpleService
+    public function appConfig(): array
     {
-        return new SimpleService();
+        $config = \yaml_parse_file(__DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.
+            '..'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'config.yaml');
+
+        return $config;
     }
 }

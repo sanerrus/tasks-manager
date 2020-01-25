@@ -8,4 +8,6 @@ use App\Kernel;
 
 $kernel = new Kernel();
 $kernel->run();
-var_dump($kernel->getContainer()->get('mySimpleService')->getTTT()); // test
+//var_dump($kernel->getContainer()->get('appConfig'));
+
+//phpinfo();

@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Ядро системы
  * PHP version 7.4.1.
@@ -14,8 +16,11 @@
 namespace App;
 
 use App\Configuration\AppConfiguration;
+use App\Entity\Users;
 use bitExpert\Disco\AnnotationBeanFactory;
 use bitExpert\Disco\BeanFactoryRegistry;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Tools\Setup;
 use Psr\Container\ContainerInterface;
 
 /**
@@ -31,12 +36,16 @@ use Psr\Container\ContainerInterface;
  */
 class Kernel
 {
+    private const CONFIG_FILE = 'config.yaml';
+
     /**
      * Контейнер приложения.
      *
      * @var ContainerInterface
      */
     private ContainerInterface $container;
+
+    private EntityManager $em;
 
     /**
      * Запускаем приложение, производим первоначальные настройки.
@@ -45,6 +54,22 @@ class Kernel
     {
         $this->container = new AnnotationBeanFactory(AppConfiguration::class);
         BeanFactoryRegistry::register($this->container);
+
+        $paramTasksdb = $this->getParameters()['databases']['tasksdb'];
+        $paths = [__DIR__.DIRECTORY_SEPARATOR.'Entity'];
+        $isDevMode = true;
+
+        // the connection configuration
+        $dbParams = [
+            'driver' => 'pdo_mysql',
+            'user' => 'tasks',
+            'password' => 'tasks',
+            'dbname' => 'tasks',
+        ];
+
+        $config = Setup::createAnnotationMetadataConfiguration($paths, $isDevMode, null, null, false);
+        $this->em = EntityManager::create($dbParams, $config);
+        var_dump($this->em->getRepository(Users::class)->find(1));
     }
 
     /**
@@ -53,5 +78,15 @@ class Kernel
     public function getContainer(): ContainerInterface
     {
         return $this->container;
+    }
+
+    public function getParameters(): array
+    {
+        return $this->getContainer()->get('appConfig');
+    }
+
+    public function getEntityManager(): EntityManager
+    {
+        return $this->em;
     }
 }

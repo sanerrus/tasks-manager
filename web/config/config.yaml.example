@@ -1,0 +1,6 @@
+databases:
+  tasksdb:
+    user: '<username>'
+    password: '<password>'
+    database: '<database>'
+    host: '<host>'
