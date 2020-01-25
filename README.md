@@ -40,6 +40,11 @@ web приложение станет доступно по url http://tasks-man
 2. ER модель - файл ER.png 
 
 ---
+### Используемые библиотеки
+1. Внедрение зависимостей - **bitexpert/disco** (https://github.com/bitExpert/disco)
+2. 
+
+---
 ### Качество кода
 
 1. allysonsilva/php-pre-commit - установленн pre-commit (https://github.com/allysonsilva/php-pre-commit) 
