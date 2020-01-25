@@ -47,7 +47,7 @@ web приложение станет доступно по url http://tasks-man
 ---
 ### Качество кода
 
-1. allysonsilva/php-pre-commit - установленн pre-commit (https://github.com/allysonsilva/php-pre-commit) 
+1. allysonsilva/php-pre-commit - установленн pre-commit (https://github.com/allysonsilva/php-pre-commit). Подкорректированный файл `pre-commit` необходимо копировать в папку `.git/hooks/`
 2. phpstan/phpstan - установлен статический анализатор кода (https://github.com/phpstan/phpstan)
 3. тесты - папка tests
 
