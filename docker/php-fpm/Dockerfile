@@ -21,10 +21,6 @@ libevent-dev icu-dev libidn-dev spl \
 && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN mkdir /run/mysqld
-#echo 'pdo_mysql.default_socket=/run/mysqld/mysqld.sock' >> /usr/local/etc/php/conf.d/docker-php-ext-pdo_mysql.ini
-
-#RUN cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini \
-# sed -i 's/pdo_mysql.default_socket=/pdo_mysql.default_socket=\/run\/mysqld\/mysqld.sock/g' /usr/local/etc/php/php.ini
 
 WORKDIR /var/www/tasks-manager
 CMD composer install; echo 'pdo_mysql.default_socket=/run/mysqld/mysqld.sock' >> /usr/local/etc/php/conf.d/docker-php-ext-pdo_mysql.ini; /usr/local/sbin/php-fpm -F -R
