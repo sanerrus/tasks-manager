@@ -42,7 +42,8 @@ web приложение станет доступно по url http://tasks-man
 ---
 ### Используемые библиотеки
 1. Внедрение зависимостей - **bitexpert/disco** (https://github.com/bitExpert/disco)
-2. 
+2. Работа с БД (ORM) - Doctrine
+3. 
 
 ---
 ### Качество кода
