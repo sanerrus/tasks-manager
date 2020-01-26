@@ -7,10 +7,10 @@ declare(strict_types=1);
  *
  * @category Application
  *
- * @author   sanerrus <username@example.com>
- * @license  MIT http://www.example.com/License.tx
+ * @author  sanerrus <username@example.com>
+ * @license MIT http://www.example.com/License.tx
  *
- * @see     http://www.example.com/Document.tx
+ * @see http://www.example.com/Document.tx
  */
 
 namespace App;
@@ -29,10 +29,10 @@ use Psr\Container\ContainerInterface;
  *
  * @category Application
  *
- * @author   sanerrus <username@example.com>
- * @license  MIT http://www.example.com/License.tx
+ * @author  sanerrus <username@example.com>
+ * @license MIT http://www.example.com/License.tx
  *
- * @see     http://www.example.com/Document.tx
+ * @see http://www.example.com/Document.tx
  */
 class Kernel
 {
@@ -43,23 +43,67 @@ class Kernel
      *
      * @var ContainerInterface
      */
-    private ContainerInterface $container;
+    private static ?ContainerInterface $container;
 
-    private EntityManager $em;
+    private static ?EntityManager $em;
+
+    public function __construct()
+    {
+        self::$em = null;
+        self::$container = null;
+    }
 
     /**
      * Запускаем приложение, производим первоначальные настройки.
      */
     public function run(): void
     {
-        $this->container = new AnnotationBeanFactory(AppConfiguration::class);
-        BeanFactoryRegistry::register($this->container);
+        $ent = $this->getEntityManager()->getRepository(TaskExtension::class)->getAllWithSpecifiedKey(); // test
+        var_dump($ent);
+//        $this->getEntityManager()->getRepository(TaskExtension::class)->remove($ent);
+    }
+
+    /**
+     * Возвращает контейнер приложения.
+     */
+    public function getContainer(): ContainerInterface
+    {
+        if (self::$container instanceof EntityManager) {
+            return self::$container;
+        }
+
+        self::$container = new AnnotationBeanFactory(AppConfiguration::class);
+        BeanFactoryRegistry::register(self::$container);
+
+        return self::$container;
+    }
+
+    /**
+     * Получаем конфигурационные параметры приложения.
+     *
+     * @return array <string|array> - многомерняй массив с параметрами указанных в config/config.yaml
+     */
+    public function getParameters(): array
+    {
+        return $this->getContainer()->get('appConfig');
+    }
+
+    /**
+     * Возвращаем иенеджер сущностей для работы с БД
+     * (по логике здесь можно организовать пулл подключений).
+     *
+     * @throws \Doctrine\ORM\ORMException
+     */
+    public function getEntityManager(): EntityManager
+    {
+        if (self::$em instanceof EntityManager) {
+            return self::$em;
+        }
 
         $paramTasksdb = $this->getParameters()['databases']['tasksdb'];
         $paths = [__DIR__.DIRECTORY_SEPARATOR.'Entity'];
-        $isDevMode = true;
+        $isDevMode = 'dev' === $this->getParameters()['environment'] ? true : false;
 
-        // the connection configuration
         $dbParams = [
             'driver' => 'pdo_mysql',
             'user' => $paramTasksdb['user'],
@@ -70,25 +114,8 @@ class Kernel
         ];
 
         $config = Setup::createAnnotationMetadataConfiguration($paths, $isDevMode, null, null, false);
-        $this->em = EntityManager::create($dbParams, $config);
-        var_dump($this->em->getRepository(TaskExtension::class)->find(1));
-    }
+        self::$em = EntityManager::create($dbParams, $config);
 
-    /**
-     * Возвращает контейнер приложения.
-     */
-    public function getContainer(): ContainerInterface
-    {
-        return $this->container;
-    }
-
-    public function getParameters(): array
-    {
-        return $this->getContainer()->get('appConfig');
-    }
-
-    public function getEntityManager(): EntityManager
-    {
-        return $this->em;
+        return self::$em;
     }
 }

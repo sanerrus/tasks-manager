@@ -1,5 +1,18 @@
 <?php
 
+declare(strict_types=1);
+/**
+ * Сущность статусов задач
+ * PHP version 7.4.1.
+ *
+ * @category Application
+ *
+ * @author  sanerrus <username@example.com>
+ * @license MIT http://www.example.com/License.tx
+ *
+ * @see http://www.example.com/Document.tx
+ */
+
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -8,9 +21,9 @@ use Doctrine\ORM\Mapping as ORM;
  * Users.
  *
  * @ORM\Table(name="task_statuses")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\TaskStatusesRepository")
  */
-class TaskStatuses
+class TaskStatuses implements EntityInterface
 {
     /**
      * @var int

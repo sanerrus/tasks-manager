@@ -1,5 +1,18 @@
 <?php
 
+declare(strict_types=1);
+/**
+ * Сущность пользователей системы
+ * PHP version 7.4.1.
+ *
+ * @category Application
+ *
+ * @author  sanerrus <username@example.com>
+ * @license MIT http://www.example.com/License.tx
+ *
+ * @see http://www.example.com/Document.tx
+ */
+
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -8,9 +21,9 @@ use Doctrine\ORM\Mapping as ORM;
  * Users.
  *
  * @ORM\Table(name="users")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\UsersRepository")
  */
-class Users
+class Users implements EntityInterface
 {
     /**
      * @var int

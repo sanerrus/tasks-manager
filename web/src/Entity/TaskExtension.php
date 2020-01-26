@@ -1,5 +1,18 @@
 <?php
 
+declare(strict_types=1);
+/**
+ * Сущность комментариев к задаче
+ * PHP version 7.4.1.
+ *
+ * @category Application
+ *
+ * @author  sanerrus <username@example.com>
+ * @license MIT http://www.example.com/License.tx
+ *
+ * @see http://www.example.com/Document.tx
+ */
+
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -8,9 +21,9 @@ use Doctrine\ORM\Mapping as ORM;
  * Tasks.
  *
  * @ORM\Table(name="task_extension", indexes={@ORM\Index(name="fk_tasks_1_idx", columns={"users_id"}), @ORM\Index(name="fk_tasks_2_idx", columns={"task_statuses_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\TaskExtensionRepository")
  */
-class TaskExtension
+class TaskExtension implements EntityInterface
 {
     /**
      * @var int

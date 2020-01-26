@@ -1,3 +1,4 @@
+environment: 'dev|prod'
 databases:
   tasksdb:
     user: '<username>'

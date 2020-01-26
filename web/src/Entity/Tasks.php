@@ -1,5 +1,18 @@
 <?php
 
+declare(strict_types=1);
+/**
+ * Сущность задач
+ * PHP version 7.4.1.
+ *
+ * @category Application
+ *
+ * @author  sanerrus <username@example.com>
+ * @license MIT http://www.example.com/License.tx
+ *
+ * @see http://www.example.com/Document.tx
+ */
+
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -8,9 +21,9 @@ use Doctrine\ORM\Mapping as ORM;
  * Tasks.
  *
  * @ORM\Table(name="tasks", indexes={@ORM\Index(name="fk_tasks_1_idx", columns={"users_id"}), @ORM\Index(name="fk_tasks_2_idx", columns={"task_statuses_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\TasksRepository")
  */
-class Tasks
+class Tasks implements EntityInterface
 {
     /**
      * @var int
@@ -35,23 +48,19 @@ class Tasks
      */
     private $isOpen;
 
+    // От связей отказался в пользу отказа от множества запросов к БД (см. логику работы с структурами)
     /**
-     * @var Users
+     * @var int
      *
-     * @ORM\ManyToOne(targetEntity="Users")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="users_id", referencedColumnName="id")
-     * })
+     * @ORM\Column(name="users_id", type="integer", nullable=false, options={"unsigned"=true})
      */
     private $users;
 
+    // От связей отказался в пользу отказа от множества запросов к БД (см. логику работы с структурами)
     /**
-     * @var TaskStatuses
+     * @var int
      *
-     * @ORM\ManyToOne(targetEntity="TaskStatuses")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="task_statuses_id", referencedColumnName="id")
-     * })
+     * @ORM\Column(name="task_statuses_id", type="integer", nullable=false, options={"unsigned"=true})
      */
     private $taskStatuses;
 
@@ -94,22 +103,22 @@ class Tasks
         $this->isOpen = $isOpen;
     }
 
-    public function getUsers(): Users
+    public function getUsers(): int
     {
         return $this->users;
     }
 
-    public function setUsers(Users $users): void
+    public function setUsers(int $users): void
     {
         $this->users = $users;
     }
 
-    public function getTaskStatuses(): TaskStatuses
+    public function getTaskStatuses(): int
     {
         return $this->taskStatuses;
     }
 
-    public function setTaskStatuses(TaskStatuses $taskStatuses): void
+    public function setTaskStatuses(int $taskStatuses): void
     {
         $this->taskStatuses = $taskStatuses;
     }
