@@ -6,7 +6,7 @@ RUN docker-php-ext-install sockets && set -x && addgroup -g 101 -S nginx \
 && adduser -u 101 -D -S -G nginx nginx \
 && mkdir -p /var/www/tasks-manager \
 && apk update \
-&& apk add bash tzdata git autoconf gcc g++ make pkgconfig zlib-dev libmemcached-dev curl-dev libpq mysql-dev yaml-dev \
+&& apk add bash tzdata git autoconf gcc g++ make pkgconfig zlib-dev libmemcached-dev curl-dev libpq unixodbc-dev mariadb-dev mysql-dev yaml-dev \
 libevent-dev icu-dev libidn-dev spl \
 && php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 && php -r "if (hash_file('sha384', 'composer-setup.php') === 'c5b9b6d368201a9db6f74e2611495f369991b72d9c8cbd3ffbc63edff210eb73d46ffbfce88669ad33695ef77dc76976') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" \
@@ -20,5 +20,11 @@ libevent-dev icu-dev libidn-dev spl \
 && docker-php-ext-install pdo_mysql \
 && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
+RUN mkdir /run/mysqld
+#echo 'pdo_mysql.default_socket=/run/mysqld/mysqld.sock' >> /usr/local/etc/php/conf.d/docker-php-ext-pdo_mysql.ini
+
+#RUN cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini \
+# sed -i 's/pdo_mysql.default_socket=/pdo_mysql.default_socket=\/run\/mysqld\/mysqld.sock/g' /usr/local/etc/php/php.ini
+
 WORKDIR /var/www/tasks-manager
-CMD composer install; /usr/local/sbin/php-fpm -F -R
+CMD composer install; echo 'pdo_mysql.default_socket=/run/mysqld/mysqld.sock' >> /usr/local/etc/php/conf.d/docker-php-ext-pdo_mysql.ini; /usr/local/sbin/php-fpm -F -R

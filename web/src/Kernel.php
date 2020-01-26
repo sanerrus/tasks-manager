@@ -17,6 +17,7 @@ namespace App;
 
 use App\Configuration\AppConfiguration;
 use App\Entity\TaskExtension;
+use App\Entity\Users;
 use bitExpert\Disco\AnnotationBeanFactory;
 use bitExpert\Disco\BeanFactoryRegistry;
 use Doctrine\ORM\EntityManager;
@@ -58,7 +59,8 @@ class Kernel
      */
     public function run(): void
     {
-        $ent = $this->getEntityManager()->getRepository(TaskExtension::class)->getAllWithSpecifiedKey(); // test
+        $ent = $this->getEntityManager()->getRepository(Users::class)->findAll(); // test
+//        $ent = $this->getEntityManager()->getRepository(Users::class)->getAllWithSpecifiedKey(); // test
         var_dump($ent);
 //        $this->getEntityManager()->getRepository(TaskExtension::class)->remove($ent);
     }
