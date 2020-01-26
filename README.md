@@ -8,7 +8,7 @@
 По умолчанию наcтроено что MySQL установлен локально на машине где запускается docker и его unix сокет проброшен в контейнер php-fpm. 
 MySQL сокет docker сервера при этом находится в папке `/run/mysqld`. 
 Если сокет локальной машины (docker сервера) находится в другой папке, 
-то в файле `docker/docker-compose.yml` в секции `php-fpm:` необходимо заменить /run/mysqld:/run/mysqld => <your path socket>>:/run/mysqld 
+то в файле `docker/docker-compose.yml` в секции `php-fpm:` необходимо заменить /run/mysqld:/run/mysqld => \<your path socket\>:/run/mysqld 
 
 **Требование:**
 1.  Docker >19
