@@ -1,6 +1,4 @@
 <?php
-
-declare(strict_types=1);
 /**
  * Исключение выбрасываемое при не корректном аргументе
  * PHP version 7.4.1.
@@ -12,6 +10,7 @@ declare(strict_types=1);
  *
  * @see http://www.example.com/Document.tx
  */
+declare(strict_types=1);
 
 namespace App\Exceptions;
 

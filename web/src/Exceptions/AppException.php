@@ -1,6 +1,4 @@
 <?php
-
-declare(strict_types=1);
 /**
  * Исключение выбрасываемое приложением в ситуациях когда не определено иное исключение приложения
  * Так же является базовым для других исключений приложения.
@@ -13,6 +11,7 @@ declare(strict_types=1);
  *
  * @see http://www.example.com/Document.tx
  */
+declare(strict_types=1);
 
 namespace App\Exceptions;
 

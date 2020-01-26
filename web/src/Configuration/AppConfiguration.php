@@ -13,6 +13,9 @@
 
 namespace App\Configuration;
 
+use App\Kernel;
+use App\Services\Users\Users;
+use App\Services\Users\UsersInterface;
 use bitExpert\Disco\Annotations\Bean;
 use bitExpert\Disco\Annotations\Configuration;
 
@@ -45,5 +48,15 @@ class AppConfiguration
         );
 
         return $config;
+    }
+
+    /**
+     * Сервис работы с пользователями.
+     *
+     * @Bean
+     */
+    public function usersService(): UsersInterface
+    {
+        return new Users(Kernel::getInstance());
     }
 }

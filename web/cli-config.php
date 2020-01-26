@@ -3,7 +3,7 @@
 use App\Kernel;
 use Doctrine\ORM\Tools\Console\ConsoleRunner;
 
-$kernel = new Kernel();
+$kernel = Kernel::getInstance();
 $kernel->run();
 
 $entityManager = $kernel->getEntityManager();
