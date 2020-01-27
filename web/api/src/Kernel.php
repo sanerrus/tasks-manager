@@ -89,8 +89,8 @@ class Kernel
         /** работа с сервисами */
         $userService = $this->getContainer()->get('usersService');
 //        var_dump($userService);
-        $users = $userService->findByIsActive(true);
-        var_dump($users); // test
+        $users = $userService->findByName('user 1');
+//        var_dump($users); // test
     }
 
     /**

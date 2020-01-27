@@ -1,4 +1,4 @@
 vendor
 .idea
 config.yaml
-web/output/
+output/

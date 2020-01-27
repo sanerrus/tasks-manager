@@ -13,18 +13,18 @@ services:
   web-api:
     build: nginx-api/
     volumes:
-      - ../web:/var/www/tasks-manager
+      - ../web/api:/var/www/tasks-manager
       - ./nginx-api/conf/nginx/tasks-manager.conf:/etc/nginx/conf.d/tasks-manager.conf
       - phpfpm-socket:/var/run
   web-front:
     build: nginx-front/
     volumes:
-      - ../web:/var/www/tasks-manager
+      - ../web/fornt:/var/www/tasks-manager
       - ./nginx-front/conf/nginx/tasks-manager.conf:/etc/nginx/conf.d/tasks-manager.conf
   php-fpm:
     build: php-fpm/
     volumes:
-      - ../web:/var/www/tasks-manager
+      - ../web/api:/var/www/tasks-manager
       - ./php-fpm/php-fpm.d/zz-docker.conf:/usr/local/etc/php-fpm.d/zz-docker.conf
       - /run/mysqld:/run/mysqld
       - phpfpm-socket:/var/run

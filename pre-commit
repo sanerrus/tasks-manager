@@ -223,7 +223,7 @@ if [ -n "$files" ]; then
     phpcs_bin="php $phpcs_local_bin"
 
     # Default command via install local project package with Composer (Depot Manager for PHP).
-    phpcs_vendor_bin="web/vendor/bin/phpcs"
+    phpcs_vendor_bin="web/api/vendor/bin/phpcs"
 
     # Standard command via composer global installation.
     phpcs_global_bin="phpcs"
@@ -245,7 +245,7 @@ if [ -n "$files" ]; then
         fi
     fi
 
-    if ! hash web/vendor/bin/phpcbf/phpcbf 2>/dev/null; then
+    if ! hash web/api/vendor/bin/phpcbf/phpcbf 2>/dev/null; then
         message_warning "No valid PHP Code Beautifier executable found! Please have one available as either [phpcbf]."
         message_info "Visit: https://github.com/squizlabs/PHP_CodeSniffer/wiki/Fixing-Errors-Automatically"
         echo
@@ -263,7 +263,7 @@ if [ -n "$files" ]; then
 
     printf "${color_bold_black}${color_background_yellow}PHP CodeSniffer Arguments${color_reset} ${color_bold_yellow}${php_cs_cfb_common_arguments} ${phpcs_arguments}${color_reset}\n"
     echo
-    printf "${color_bold_black}${color_background_yellow}Use PHPCBF To Fix Problems${color_reset} ${color_bold_green}web/vendor/bin/phpcbf/phpcbf${color_reset}${color_bold_yellow} ${php_cs_cfb_common_arguments} ${color_bold_purple}{FILES OR FOLDER}${color_reset}\n"
+    printf "${color_bold_black}${color_background_yellow}Use PHPCBF To Fix Problems${color_reset} ${color_bold_green}web/api/vendor/bin/phpcbf/phpcbf${color_reset}${color_bold_yellow} ${php_cs_cfb_common_arguments} ${color_bold_purple}{FILES OR FOLDER}${color_reset}\n"
     echo
 
     for file in $files; do
@@ -280,7 +280,7 @@ if [ -n "$files" ]; then
 
         # Run PHP Code Beautifier and Fixer the file.
         # Begin PHP Code Beautifier and Fixer.
-        phpcbf_output="$(pweb/vendor/bin/phpcbf/hpcbf $php_cs_cfb_common_arguments $file)"
+        phpcbf_output="$(web/api/vendor/bin/phpcbf/hpcbf $php_cs_cfb_common_arguments $file)"
 
         if [ -n "$phpcbf_output" ]; then
             # File had some issues but they were automatically fixed.
@@ -323,7 +323,7 @@ if [ -n "$files" ]; then
     echo
 
     # Verificando se arquivo binário executável existe para [php-cs-fixer].
-    if ! hash web/vendor/bin/php-cs-fixer 2>/dev/null; then
+    if ! hash web/api/vendor/bin/php-cs-fixer 2>/dev/null; then
         message_warning "No valid PHP Coding Standards Fixer executable found! Please have one available as either ✖✖✖ php-cs-fixer ✖✖✖"
         message_info "Visit: https://github.com/FriendsOfPHP/PHP-CS-Fixer#installation"
         echo
@@ -338,13 +338,13 @@ if [ -n "$files" ]; then
     git status --porcelain | grep -e '^[AM]\(.*\).php$' | cut -c 3- | while read line; do
         # php-cs-fixer CHECK.
         # --dry-run (The --dry-run option displays the files that need to be fixed but without actually modifying them).
-        php_cs_fixer_codestyle_dry_run=`web/vendor/bin/php-cs-fixer --dry-run --diff --verbose --using-cache=no --rules=@PSR2,@Symfony fix ${line} 2>&1 | grep "diff"`
+        php_cs_fixer_codestyle_dry_run=`web/api/vendor/bin/php-cs-fixer --dry-run --diff --verbose --using-cache=no --rules=@PSR2,@Symfony fix ${line} 2>&1 | grep "diff"`
 
         # Check last command (PHP-CS-FIXER) code for fixed.
         if [ -n "$php_cs_fixer_codestyle_dry_run" ]; then
 
             # Applicando PSRs e @Symfony.
-            php_cs_fixer_codestyle=`web/vendor/bin/php-cs-fixer --diff --using-cache=no --rules=@PSR2,@Symfony fix ${line} &>/dev/null`
+            php_cs_fixer_codestyle=`web/api/vendor/bin/php-cs-fixer --diff --using-cache=no --rules=@PSR2,@Symfony fix ${line} &>/dev/null`
 
             git add ${line}
 
@@ -360,7 +360,7 @@ if [ -n "$files" ]; then
 #    echo "╰──────────────────────────────────────────╯"
 #    echo
 #
-#    if ! hash web/vendor/bin/phpmd 2>/dev/null; then
+#    if ! hash web/api/vendor/bin/phpmd 2>/dev/null; then
 #        message_warning "No valid PHP Mess Detector executable found! Please have one available as either ✖✖✖ phpmd ✖✖✖"
 #        message_info "Visit: https://phpmd.org/download/index.html"
 #        echo
@@ -378,7 +378,7 @@ if [ -n "$files" ]; then
 #    message_info "PHPMD - PHP Mess Detector: [ ${staged_files_separated_by_comma} ]"
 #
 #    # PHPMD running script
-#    phpmd_output=$(web/vendor/bin/phpmd ${staged_files_separated_by_comma} text "${phpmd_rules}" --suffixes php)
+#    phpmd_output=$(web/api/vendor/bin/phpmd ${staged_files_separated_by_comma} text "${phpmd_rules}" --suffixes php)
 #    phpmd_retval=$?
 #
 #    if [ $phpmd_retval -ne 0 ]; then
@@ -400,7 +400,7 @@ if [ -n "$files" ]; then
     echo "╰─────────────────────────────────────────────────╯"
     echo
 
-    if ! hash web/vendor/bin/phpcpd 2>/dev/null; then
+    if ! hash web/api/vendor/bin/phpcpd 2>/dev/null; then
         message_warning "No valid PHP Copy/Paste Detector executable found! Please have one available as either ✖✖✖ phpcpd ✖✖✖"
         printf "${color_bold_white}Please install phpcpd, e.g.:${color_reset}\n"
         printf "${color_bold_green}composer global require --dev 'sebastian/phpcpd=*'${color_reset}\n"
@@ -414,7 +414,7 @@ if [ -n "$files" ]; then
 
     # PHPCPD running script
     phpcpd_tmp=/tmp/t$$
-    web/vendor/bin/phpcpd ${phpcpd_arguments} ${staged_files_separated_by_spaces} > $phpcpd_tmp
+    web/api/vendor/bin/phpcpd ${phpcpd_arguments} ${staged_files_separated_by_spaces} > $phpcpd_tmp
 
     if grep -q 'Found' $phpcpd_tmp
     then
