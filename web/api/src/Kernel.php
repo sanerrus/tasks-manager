@@ -20,7 +20,6 @@ use App\Entity\Users;
 use bitExpert\Disco\AnnotationBeanFactory;
 use bitExpert\Disco\BeanFactoryRegistry;
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\Tools\Setup;
 use Psr\Container\ContainerInterface;
 
 /**
@@ -80,16 +79,16 @@ class Kernel
      */
     public function run(): void
     {
-        /** Работа с БД */
+        /* Работа с БД */
 //        $ent = $this->getEntityManager()->getRepository(Users::class)->findAll(); // test
 //        $ent = $this->getEntityManager()->getRepository(Users::class)->getAllWithSpecifiedKey(); // test
 //        var_dump($ent);
 //        $this->getEntityManager()->getRepository(TaskExtension::class)->remove($ent);
 
-        /** работа с сервисами */
-        $userService = $this->getContainer()->get('usersService');
+        /* работа с сервисами */
+//        $userService = $this->getContainer()->get('usersService');
 //        var_dump($userService);
-        $users = $userService->findByName('user 1');
+//        $users = $userService->findByName('user 1');
 //        var_dump($users); // test
     }
 
@@ -98,7 +97,7 @@ class Kernel
      */
     public function getContainer(): ContainerInterface
     {
-        if (self::$container instanceof EntityManager) {
+        if (self::$container instanceof ContainerInterface) {
             return self::$container;
         }
 
@@ -116,37 +115,6 @@ class Kernel
     public function getParameters(): array
     {
         return $this->getContainer()->get('appConfig');
-    }
-
-    /**
-     * Возвращаем иенеджер сущностей для работы с БД
-     * (по логике здесь можно организовать пулл подключений).
-     *
-     * @throws \Doctrine\ORM\ORMException
-     */
-    public function getEntityManager(): EntityManager
-    {
-        if (self::$em instanceof EntityManager) {
-            return self::$em;
-        }
-
-        $paramTasksdb = $this->getParameters()['databases']['tasksdb'];
-        $paths = [__DIR__.DIRECTORY_SEPARATOR.'Entity'];
-        $isDevMode = 'dev' === $this->getParameters()['environment'] ? true : false;
-
-        $dbParams = [
-            'driver' => 'pdo_mysql',
-            'user' => $paramTasksdb['user'],
-            'password' => $paramTasksdb['password'],
-            'dbname' => $paramTasksdb['database'],
-            'host' => $paramTasksdb['host'],
-            'charset' => 'utf8',
-        ];
-
-        $config = Setup::createAnnotationMetadataConfiguration($paths, $isDevMode, null, null, false);
-        self::$em = EntityManager::create($dbParams, $config);
-
-        return self::$em;
     }
 
     private function __clone()

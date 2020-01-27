@@ -19,7 +19,7 @@ namespace App\Services;
 use App\Entity\EntityInterface;
 use App\Exceptions\InvalidArgumentException;
 
-abstract class AbstractWorkWithData
+abstract class AbstractWorkWithData extends AbstractService
 {
     /**
      * Получаем данные по условиям

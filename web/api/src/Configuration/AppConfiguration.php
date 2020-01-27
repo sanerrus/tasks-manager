@@ -18,6 +18,8 @@ use App\Services\Users\Users;
 use App\Services\Users\UsersInterface;
 use bitExpert\Disco\Annotations\Bean;
 use bitExpert\Disco\Annotations\Configuration;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Tools\Setup;
 
 /**
  * Основной класс конфигурации.
@@ -58,5 +60,31 @@ class AppConfiguration
     public function usersService(): UsersInterface
     {
         return new Users(Kernel::getInstance());
+    }
+
+    /**
+     * Менеджер управления сущностями БД.
+     *
+     * @Bean
+     */
+    public function entityManager(): EntityManager
+    {
+        $paramTasksdb = Kernel::getInstance()->getParameters()['databases']['tasksdb'];
+        $paths = [__DIR__.DIRECTORY_SEPARATOR.'Entity'];
+        $isDevMode = 'dev' === Kernel::getInstance()->getParameters()['environment'] ? true : false;
+
+        $dbParams = [
+            'driver' => 'pdo_mysql',
+            'user' => $paramTasksdb['user'],
+            'password' => $paramTasksdb['password'],
+            'dbname' => $paramTasksdb['database'],
+            'host' => $paramTasksdb['host'],
+            'port' => $paramTasksdb['port'],
+            'charset' => 'utf8',
+        ];
+
+        $config = Setup::createAnnotationMetadataConfiguration($paths, $isDevMode, null, null, false);
+
+        return EntityManager::create($dbParams, $config);
     }
 }

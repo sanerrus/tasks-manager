@@ -26,7 +26,7 @@ class Users extends AbstractWorkWithData implements UsersInterface
 
     public function __construct(Kernel $kernel)
     {
-        $this->em = $kernel->getEntityManager();
+        $this->em = $kernel->getContainer()->get('entityManager');
     }
 
     public function findBy(array $criteria): array
