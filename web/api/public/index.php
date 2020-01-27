@@ -7,13 +7,14 @@ require __DIR__.'/../vendor/autoload.php';
 use App\Kernel;
 use Laminas\Diactoros\Response;
 use Laminas\Diactoros\ResponseFactory;
+use Laminas\Diactoros\ServerRequestFactory;
 use League\Route\Route;
 use League\Route\Router;
 use League\Route\Strategy\JsonStrategy;
 use Psr\Http\Message\ServerRequestInterface;
 
 /** получаем запрос */
-$request = Laminas\Diactoros\ServerRequestFactory::fromGlobals(
+$request = ServerRequestFactory::fromGlobals(
     $_SERVER,
     $_GET,
     $_POST,

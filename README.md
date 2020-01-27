@@ -55,7 +55,8 @@ web приложение станет доступно по url http://tasks-man
 ### Используемые библиотеки
 1. Внедрение зависимостей - **bitexpert/disco** (https://github.com/bitExpert/disco)
 2. Работа с БД (ORM) - Doctrine
-3. 
+3. Router - league/route (https://github.com/thephpleague/route)
+4. Request and Response - laminas/laminas-diactoros 
 
 ---
 ### Качество кода

@@ -19,7 +19,7 @@ services:
   web-front:
     build: nginx-front/
     volumes:
-      - ../web/fornt:/var/www/tasks-manager
+      - ../web/front:/var/www/tasks-manager
       - ./nginx-front/conf/nginx/tasks-manager.conf:/etc/nginx/conf.d/tasks-manager.conf
   php-fpm:
     build: php-fpm/
