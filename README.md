@@ -3,7 +3,7 @@
 ### Старт приложения
 
 **ВАЖНО:** 
-1. composer-installer.php может измениться и не даст запустить docker контейнер 
+1. composer-installer.php может измениться и не даст запустить docker контейнер (стр. 12 файла https://github.com/sanerrus/tasks-manager/blob/master/docker/php-fpm/Dockerfile)
 2. Подключение к mysql идет через сокет. 
 По умолчанию наcтроено что MySQL установлен локально на машине где запускается docker и его unix сокет проброшен в контейнер php-fpm. 
 MySQL сокет docker сервера при этом находится в папке `/run/mysqld`. 
@@ -60,7 +60,7 @@ web приложение станет доступно по url http://tasks-man
 ---
 ### Качество кода
 
-1. allysonsilva/php-pre-commit - установленн pre-commit (https://github.com/allysonsilva/php-pre-commit). Подкорректированный файл `pre-commit` необходимо копировать в папку `.git/hooks/`
+1. allysonsilva/php-pre-commit - установленн pre-commit (https://github.com/allysonsilva/php-pre-commit). Подкорректированный файл в корне проекта `pre-commit` необходимо копировать в папку `.git/hooks/`
 2. phpstan/phpstan - установлен статический анализатор кода (https://github.com/phpstan/phpstan)
 3. тесты - папка tests
 
