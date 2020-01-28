@@ -9,6 +9,8 @@
 MySQL сокет docker сервера при этом находится в папке `/run/mysqld`. 
 Если сокет локальной машины (docker сервера) находится в другой папке, 
 то в файле `docker/docker-compose.yml` в секции `php-fpm:` необходимо заменить /run/mysqld:/run/mysqld => \<your path socket\>:/run/mysqld 
+3. Пока не решена проблема почему mysql.sock не всегда появляется в контейнере. Если в выводе появляется ошибка связанная с PDO, 
+попробуйте перезапустить контейнер
 
 **Требование:**
 1.  Docker >19
@@ -54,11 +56,11 @@ web приложение станет доступно по url http://tasks-man
 ---
 ### Используемые библиотеки/технологии
 1. Контейнер - **bitexpert/disco** (https://github.com/bitExpert/disco)
-2. Внедрение зависимостей - собственная ревлизация
+2. Механизм внедрение зависимостей - собственная ревлизация
 2. Работа с БД (ORM) - **Doctrine**
 3. Router - **league/route** (https://github.com/thephpleague/route)
 4. Request and Response - **laminas/laminas-diactoros** (https://github.com/laminas/laminas-diactoros) 
-5. http ответы - 
+5. emitter - **narrowspark/http-emitter** (https://github.com/narrowspark/http-emitter)
 
 ---
 ### Качество кода

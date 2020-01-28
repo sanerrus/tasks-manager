@@ -59,7 +59,7 @@ class AppConfiguration
      */
     public function usersService(): UsersInterface
     {
-        return new Users(Kernel::getInstance());
+        return new Users();
     }
 
     /**

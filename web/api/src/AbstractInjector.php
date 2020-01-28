@@ -2,6 +2,9 @@
 
 namespace App;
 
+use App\Exceptions\AppException;
+use bitExpert\Disco\BeanException;
+
 abstract class AbstractInjector
 {
     public function __construct()
@@ -20,6 +23,7 @@ abstract class AbstractInjector
     private function run(): void
     {
         $ref = new \ReflectionClass($this->getNameOfClass());
+        $conteiner = Kernel::getInstance()->getContainer();
 
         $pattern = "/@Inject ([^\s]+)/";
         foreach ($ref->getProperties() as $refChild) {
@@ -27,13 +31,15 @@ abstract class AbstractInjector
             preg_match($pattern, $comment, $matches);
             if ($matches) {
                 $variable = $refChild->getName();
-                $this->$variable = Kernel::getInstance()->getContainer()->get($matches[1]);
+                if (!$conteiner->has($matches[1])) {
+                    continue;
+                }
+                try {
+                    $this->$variable = $conteiner->get($matches[1]);
+                } catch (BeanException $e) {
+                    throw new AppException('ERROR: AbstractInjector::run(): '.$e->getMessage());
+                }
             }
-        }
-
-        $methods = $ref->getMethods();
-        foreach ($methods as $refChild) {
-            var_dump($refChild->getParameters());
         }
     }
 }

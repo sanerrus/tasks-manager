@@ -21,7 +21,8 @@ class UsersController extends AbstractController
 
     public function index(ServerRequestInterface $request): array
     {
-        var_dump($this->user->findAll());
+//        var_dump($this->user->findAll());
+//        var_dump($this->user);
 //        var_dump($request->getMethod());
 
         return [

@@ -15,12 +15,14 @@ declare(strict_types=1);
 namespace App;
 
 use App\Configuration\AppConfiguration;
-use App\Entity\TaskExtension;
-use App\Entity\Users;
 use bitExpert\Disco\AnnotationBeanFactory;
 use bitExpert\Disco\BeanFactoryRegistry;
-use Doctrine\ORM\EntityManager;
+use Laminas\Diactoros\ResponseFactory;
+use League\Route\Router;
+use League\Route\Strategy\JsonStrategy;
+use Narrowspark\HttpEmitter\SapiEmitter;
 use Psr\Container\ContainerInterface;
+use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * Ядро приложения
@@ -42,54 +44,39 @@ class Kernel
      *
      * @var ContainerInterface
      */
-    private static ?ContainerInterface $container;
-
-    /**
-     * Менеджер сущностей БД.
-     *
-     * @var EntityManager
-     */
-    private static ?EntityManager $em;
+    private static ContainerInterface $container;
 
     /**
      * Экземпляр ядра.
      *
-     * @var Kernel|null
+     * @var Kernel
      */
-    private static ?Kernel $instance = null;
-
-    private function __construct()
-    {
-        self::$em = null;
-        self::$container = null;
-    }
+    private static Kernel $instance;
 
     public static function getInstance(): Kernel
     {
-        if (self::$instance instanceof Kernel) {
+        if (isset(self::$instance) && self::$instance instanceof self) {
             return self::$instance;
         }
+
         self::$instance = new self();
 
         return self::$instance;
     }
 
-    /**
-     * Запускаем приложение, производим первоначальные настройки.
-     */
-    public function run(): void
+    public function runHttp(ServerRequestInterface $request): void
     {
-        /* Работа с БД */
-//        $ent = $this->getEntityManager()->getRepository(Users::class)->findAll(); // test
-//        $ent = $this->getEntityManager()->getRepository(Users::class)->getAllWithSpecifiedKey(); // test
-//        var_dump($ent);
-//        $this->getEntityManager()->getRepository(TaskExtension::class)->remove($ent);
+        $responseFactory = new ResponseFactory();
+        $strategy = new JsonStrategy($responseFactory);
+        $router = (new Router())->setStrategy($strategy);
 
-        /* работа с сервисами */
-//        $userService = $this->getContainer()->get('usersService');
-//        var_dump($userService);
-//        $users = $userService->findByName('user 1');
-//        var_dump($users); // test
+        // TODO: подумать как вынести роуты
+        $router->map('GET', '/test', 'App\Controller\UsersController::index');
+
+        $response = $router->dispatch($request);
+
+        $emitter = new SapiEmitter();
+        $emitter->emit($response);
     }
 
     /**
@@ -97,7 +84,7 @@ class Kernel
      */
     public function getContainer(): ContainerInterface
     {
-        if (self::$container instanceof ContainerInterface) {
+        if (isset(self::$container) && self::$container instanceof ContainerInterface) {
             return self::$container;
         }
 

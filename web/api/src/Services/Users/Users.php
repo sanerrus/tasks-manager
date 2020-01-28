@@ -16,18 +16,19 @@ namespace App\Services\Users;
 
 use App\Entity\EntityInterface;
 use App\Entity\Users as User;
-use App\Kernel;
 use App\Services\AbstractWorkWithData;
 use Doctrine\ORM\EntityManager;
 
 class Users extends AbstractWorkWithData implements UsersInterface
 {
-    private EntityManager $em;
-
-    public function __construct(Kernel $kernel)
-    {
-        $this->em = $kernel->getContainer()->get('entityManager');
-    }
+    /**
+     * Менеджер работы с БД.
+     *
+     * @var EntityManager
+     *
+     * @Inject entityManager
+     */
+    protected EntityManager $em;
 
     public function findBy(array $criteria): array
     {

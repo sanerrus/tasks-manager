@@ -23,4 +23,4 @@ libevent-dev icu-dev libidn-dev spl \
 RUN mkdir /run/mysqld
 
 WORKDIR /var/www/tasks-manager
-CMD composer install; echo 'pdo_mysql.default_socket=/run/mysqld/mysqld.sock' >> /usr/local/etc/php/conf.d/docker-php-ext-pdo_mysql.ini; /usr/local/sbin/php-fpm -F -R
+CMD composer install; echo -e "extension=pdo_mysql.so\npdo_mysql.default_socket=/run/mysqld/mysqld.sock" > /usr/local/etc/php/conf.d/docker-php-ext-pdo_mysql.ini; /usr/local/sbin/php-fpm -F -R
