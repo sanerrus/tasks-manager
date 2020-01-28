@@ -6,14 +6,20 @@
  * @category Application
  *
  * @author  sanerrus <username@example.com>
- * @license MIT http://www.example.com/License.tx
+ * @license MIT http://www.example.com/License.txt
  *
- * @see http://www.example.com/Document.tx
+ * @see http://www.example.com/Document.txt
  */
 
 namespace App\Configuration;
 
 use App\Kernel;
+use App\Services\Tasks\TaskExtension\TaskExtension;
+use App\Services\Tasks\TaskExtension\TaskExtensionInterface;
+use App\Services\Tasks\Tasks;
+use App\Services\Tasks\TasksInterface;
+use App\Services\Tasks\TaskStatuses\TaskStatuses;
+use App\Services\Tasks\TaskStatuses\TaskStatusesInterface;
 use App\Services\Users\Users;
 use App\Services\Users\UsersInterface;
 use bitExpert\Disco\Annotations\Bean;
@@ -38,7 +44,7 @@ class AppConfiguration
     /**
      * Бин конфигурационных данных.
      *
-     * @return array <string|array> - многомерняй массив с параметрами указанных в config/config.yaml
+     * @return array <string|array> - многомерный массив с параметрами указанных в config/config.yaml
      *
      * @Bean
      */
@@ -60,6 +66,36 @@ class AppConfiguration
     public function usersService(): UsersInterface
     {
         return new Users();
+    }
+
+    /**
+     * Сервис работы с задачами.
+     *
+     * @Bean
+     */
+    public function tasks(): TasksInterface
+    {
+        return new Tasks();
+    }
+
+    /**
+     * Сервис работы со статусами задачи.
+     *
+     * @Bean
+     */
+    public function taskStatuses(): TaskStatusesInterface
+    {
+        return new TaskStatuses();
+    }
+
+    /**
+     * Сервис работы с комментариями к задаче.
+     *
+     * @Bean
+     */
+    public function taskExtension(): TaskExtensionInterface
+    {
+        return new TaskExtension();
     }
 
     /**

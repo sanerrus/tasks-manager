@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Services\Tasks\TaskExtension\TaskExtensionInterface;
+use App\Services\Tasks\TasksInterface;
 use App\Services\Users\UsersInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -19,10 +21,28 @@ class UsersController extends AbstractController
      */
     protected UsersInterface $user;
 
+    /**
+     * Сервис работы с задачами.
+     *
+     * @var TasksInterface
+     *
+     * @Inject tasks
+     */
+    protected TasksInterface $tasks;
+
+    /**
+     * Сервис работы с комментариями к задаче.
+     *
+     * @var TaskExtensionInterface
+     *
+     * @Inject taskExtension
+     */
+    protected TaskExtensionInterface $taskExtension;
+
     public function index(ServerRequestInterface $request): array
     {
-//        var_dump($this->user->findAll());
-//        var_dump($this->user);
+//        var_dump($this->tasks->getTaskExtension(1));
+//        var_dump($this->taskStatuses);
 //        var_dump($request->getMethod());
 
         return [

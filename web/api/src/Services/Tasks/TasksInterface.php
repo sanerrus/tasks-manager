@@ -2,8 +2,12 @@
 
 namespace App\Services\Tasks;
 
-use App\Kernel;
-
 interface TasksInterface
 {
+    /**
+     * Получение комментариев к задаче.
+     *
+     * @return array <TaskExtensionInterface>
+     */
+    public function getTaskExtension(int $tasksId): array;
 }

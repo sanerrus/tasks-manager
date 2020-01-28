@@ -6,9 +6,9 @@
  * @category Application
  *
  * @author  sanerrus <username@example.com>
- * @license MIT http://www.example.com/License.tx
+ * @license MIT http://www.example.com/License.txt
  *
- * @see http://www.example.com/Document.tx
+ * @see http://www.example.com/Document.txt
  */
 declare(strict_types=1);
 
@@ -40,13 +40,11 @@ class TaskExtension implements EntityInterface
      */
     private $description;
 
+    // Что то не так со связями
     /**
-     * @var Tasks
+     * @var int
      *
-     * @ORM\ManyToOne(targetEntity="Tasks")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="tasks_id", referencedColumnName="id")
-     * })
+     * @ORM\Column(name="tasks_id", type="integer", nullable=false, options={"unsigned"=true})
      */
     private $tasks;
 

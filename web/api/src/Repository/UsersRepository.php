@@ -6,9 +6,9 @@
  * @category Application
  *
  * @author  sanerrus <username@example.com>
- * @license MIT http://www.example.com/License.tx
+ * @license MIT http://www.example.com/License.txt
  *
- * @see http://www.example.com/Document.tx
+ * @see http://www.example.com/Document.txt
  */
 declare(strict_types=1);
 
