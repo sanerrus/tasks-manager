@@ -55,10 +55,10 @@ web приложение станет доступно по url http://tasks-man
 ### Используемые библиотеки/технологии
 1. Контейнер - **bitexpert/disco** (https://github.com/bitExpert/disco)
 2. Внедрение зависимостей - собственная ревлизация
-2. Работа с БД (ORM) - Doctrine
-3. Router - league/route (https://github.com/thephpleague/route)
-4. Request and Response - laminas/laminas-diactoros 
-5. http ответы
+2. Работа с БД (ORM) - **Doctrine**
+3. Router - **league/route** (https://github.com/thephpleague/route)
+4. Request and Response - **laminas/laminas-diactoros** (https://github.com/laminas/laminas-diactoros) 
+5. http ответы - 
 
 ---
 ### Качество кода
