@@ -6,5 +6,4 @@ use App\Kernel;
 
 interface UsersInterface
 {
-    public function __construct(Kernel $kernel);
 }
