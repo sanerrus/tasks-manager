@@ -52,11 +52,13 @@ web приложение станет доступно по url http://tasks-man
 2. ER модель - файл ER.png 
 
 ---
-### Используемые библиотеки
-1. Внедрение зависимостей - **bitexpert/disco** (https://github.com/bitExpert/disco)
+### Используемые библиотеки/технологии
+1. Контейнер - **bitexpert/disco** (https://github.com/bitExpert/disco)
+2. Внедрение зависимостей - собственная ревлизация
 2. Работа с БД (ORM) - Doctrine
 3. Router - league/route (https://github.com/thephpleague/route)
 4. Request and Response - laminas/laminas-diactoros 
+5. http ответы
 
 ---
 ### Качество кода
