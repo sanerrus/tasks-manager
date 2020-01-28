@@ -6,5 +6,4 @@ use App\Kernel;
 
 interface TasksInterface
 {
-    public function __construct(Kernel $kernel);
 }
