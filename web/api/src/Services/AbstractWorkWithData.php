@@ -16,10 +16,11 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\AbstractInjector;
 use App\Entity\EntityInterface;
 use App\Exceptions\InvalidArgumentException;
 
-abstract class AbstractWorkWithData extends AbstractService
+abstract class AbstractWorkWithData extends AbstractInjector
 {
     /**
      * Получаем данные по условиям
