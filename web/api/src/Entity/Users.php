@@ -47,12 +47,22 @@ class Users implements EntityInterface
      */
     private $isActive;
 
-    public function getId(): int
+    /**
+     * Users constructor.
+     */
+    public function __construct()
+    {
+        $this->id = null;
+        $this->name = null;
+        $this->isActive = null;
+    }
+
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -64,11 +74,23 @@ class Users implements EntityInterface
 
     public function isActive(): bool
     {
-        return $this->isActive;
+        return $this->isActive ?? false;
     }
 
     public function setIsActive(bool $isActive): void
     {
         $this->isActive = $isActive;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'isActive' => $this->isActive(),
+        ];
     }
 }

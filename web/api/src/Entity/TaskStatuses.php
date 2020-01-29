@@ -1,7 +1,7 @@
 <?php
 /**
  * Сущность статусов задач
- * PHP version 7.4.1.
+ * PHP version 7.4.
  *
  * @category Application
  *
@@ -25,7 +25,7 @@ use Doctrine\ORM\Mapping as ORM;
 class TaskStatuses implements EntityInterface
 {
     /**
-     * @var int
+     * @var int|null
      *
      * @ORM\Column(name="id", type="integer", nullable=false, options={"unsigned"=true})
      * @ORM\Id
@@ -34,18 +34,27 @@ class TaskStatuses implements EntityInterface
     private $id;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(name="name", type="string", length=64, nullable=false)
      */
     private $name;
 
-    public function getId(): int
+    /**
+     * TaskStatuses constructor.
+     */
+    public function __construct()
+    {
+        $this->id = null;
+        $this->name = null;
+    }
+
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -53,5 +62,13 @@ class TaskStatuses implements EntityInterface
     public function setName(string $name): void
     {
         $this->name = $name;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+        ];
     }
 }

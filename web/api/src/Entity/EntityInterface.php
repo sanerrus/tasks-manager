@@ -16,4 +16,8 @@ namespace App\Entity;
 
 interface EntityInterface
 {
+    /**
+     * Возвращаем данные в виде массива.
+     */
+    public function toArray(): array;
 }

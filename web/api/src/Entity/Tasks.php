@@ -141,4 +141,12 @@ class Tasks implements EntityInterface
     {
         $this->updateAt = $updateAt;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function toArray(): array
+    {
+        return [];
+    }
 }

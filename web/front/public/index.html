@@ -8,8 +8,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css"/>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
             integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
@@ -22,7 +23,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
 </head>
 <body>
-<header class="container-fluid" style="background: blueviolet; padding: 20px; font-size: 18px; color: white; margin-bottom: 15px;">
+<header class="container-fluid"
+        style="background: blueviolet; padding: 20px; font-size: 18px; color: white; margin-bottom: 15px;">
     <div class="row justify-content-between">
         <div class="col">
             Система управления задачами
@@ -32,12 +34,84 @@
     </div>
 </header>
 <div class="container" style="background: gainsboro; padding: 20px 10px;">
-    TTTTTTT
+    <div id="searchFormError"></div>
+    <div class="row">
+        <div class="col-lg-3">
+            Искать от даты: <input type="date" id="searchByDataFrom">
+        </div>
+        <div class="col-lg-3">
+            Искать до даты: <input type="date" id="searchByDataTo">
+        </div>
+        <div class="col-lg-3">
+            Статус:
+            <select id="searchByStatus">
+
+            </select>
+        </div>
+        <div class="col-lg-3">
+            Сотрудники:
+            <select id="searchByUser">
+
+            </select>
+        </div>
+        <div class="col-lg-3">
+            Открытый/закрытый:
+            <input type="checkbox" id="searchByIsOpen">
+        </div>
+    </div>
+    <br><br>
+    <div class="row">
+        <div class="col-lg-3">
+            <input type="button" value="Найти"> кнопка не работает
+        </div>
+    </div>
 </div>
 
 <script>
-  (function () {
-  })();
+    (function () {
+        const apiUrl = "//api.tasks-manager.loca";
+
+        jQuery.ajax({
+            url: 'http://api.tasks-manager.local/search-form',
+            type: 'GET',
+            success: function (data) {
+                moduleIndex.createSearchForm(data); // test
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                document.getElementById("searchFormError").textContent = jqXHR.status + " " + errorThrown;
+            }
+        });
+
+        let moduleIndex = function () {
+        };
+
+        moduleIndex.createSearchForm = function (data) {
+            let firstUser = document.createElement("option");
+            firstUser.value = 0;
+            firstUser.innerText = 'Все';
+            document.getElementById("searchByUser").appendChild(firstUser);
+
+            for (let i=0; i<data.users.length; i++) {
+                let opt = document.createElement("option");
+                opt.value = data.users[i].id;
+                opt.innerText = data.users[i].name;
+                document.getElementById("searchByUser").appendChild(opt);
+            }
+
+            let firstStatus = document.createElement("option");
+            firstStatus.value = 0;
+            firstStatus.innerText = 'Все';
+            document.getElementById("searchByStatus").appendChild(firstStatus);
+
+            for (let i=0; i<data.taskStatuses.length; i++) {
+                let opt = document.createElement("option");
+                opt.value = data.taskStatuses[i].id;
+                opt.innerText = data.taskStatuses[i].name;
+                document.getElementById("searchByStatus").appendChild(opt);
+            }
+        };
+
+    })();
 </script>
 
 </body>

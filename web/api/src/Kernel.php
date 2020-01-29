@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace App;
 
 use App\Configuration\AppConfiguration;
+use App\Services\Middleware\CorsMiddleware;
 use bitExpert\Disco\AnnotationBeanFactory;
 use bitExpert\Disco\BeanFactoryRegistry;
 use Laminas\Diactoros\ResponseFactory;
@@ -69,9 +70,10 @@ class Kernel
         $responseFactory = new ResponseFactory();
         $strategy = new JsonStrategy($responseFactory);
         $router = (new Router())->setStrategy($strategy);
+        $router->middleware(new CorsMiddleware());
 
         // TODO: подумать как вынести роуты
-        $router->map('GET', '/test', 'App\Controller\UsersController::index');
+        $router->map('GET', '/search-form', 'App\Controller\SearhFormController::getSearchForm');
 
         $response = $router->dispatch($request);
 
