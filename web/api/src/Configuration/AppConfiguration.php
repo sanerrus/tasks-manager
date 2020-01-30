@@ -26,6 +26,8 @@ use bitExpert\Disco\Annotations\Bean;
 use bitExpert\Disco\Annotations\Configuration;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
+use Monolog\Logger;
+use Psr\Log\LoggerInterface;
 
 /**
  * Основной класс конфигурации.
@@ -96,6 +98,16 @@ class AppConfiguration
     public function taskExtension(): TaskExtensionInterface
     {
         return new TaskExtension();
+    }
+
+    /**
+     * Log.
+     *
+     * @Bean
+     */
+    public function loger(): LoggerInterface
+    {
+        return new Logger('App');
     }
 
     /**

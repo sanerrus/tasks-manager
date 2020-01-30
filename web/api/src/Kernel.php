@@ -21,6 +21,8 @@ use bitExpert\Disco\BeanFactoryRegistry;
 use Laminas\Diactoros\ResponseFactory;
 use League\Route\Router;
 use League\Route\Strategy\JsonStrategy;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 use Narrowspark\HttpEmitter\SapiEmitter;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -67,6 +69,8 @@ class Kernel
 
     public function runHttp(ServerRequestInterface $request): void
     {
+        $this->runLoger();
+
         $responseFactory = new ResponseFactory();
         $strategy = new JsonStrategy($responseFactory);
         $router = (new Router())->setStrategy($strategy);
@@ -104,6 +108,15 @@ class Kernel
     public function getParameters(): array
     {
         return $this->getContainer()->get('appConfig');
+    }
+
+    private function runLoger()
+    {
+        $loger = $this->getContainer()->get('loger');
+        $loger->pushHandler(new StreamHandler(__DIR__.'/../var/log/app.log', Logger::DEBUG));
+        $loger->info('Start App');
+
+        // .....
     }
 
     private function __clone()
