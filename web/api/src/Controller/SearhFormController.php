@@ -2,11 +2,7 @@
 
 namespace App\Controller;
 
-use App\Data\ResponseSearchForm;
-use App\Services\Tasks\TaskExtension\TaskExtensionInterface;
-use App\Services\Tasks\TaskStatuses\TaskStatuses;
-use App\Services\Tasks\TaskStatuses\TaskStatusesInterface;
-use App\Services\Users\UsersInterface;
+use App\Services\ServiceInterface;
 
 /**
  * Class SearhFormController.
@@ -14,40 +10,16 @@ use App\Services\Users\UsersInterface;
 class SearhFormController extends AbstractController
 {
     /**
-     * Сервис работы с пользователями.
-     *
-     * @var UsersInterface
-     *
-     * @Inject usersService
-     */
-    protected UsersInterface $user;
-
-    /**
-     * Сервис работы с задачами.
-     *
-     * @var TaskStatusesInterface
-     *
-     * @Inject taskStatuses
-     */
-    protected TaskStatusesInterface $taskStatuses;
-
-    /**
      * Сервис работы с комментариями к задаче.
      *
-     * @var TaskExtensionInterface
+     * @var ServiceInterface
      *
-     * @Inject taskExtension
+     * @Inject service
      */
-    protected TaskExtensionInterface $taskExtension;
+    protected ServiceInterface $service;
 
     public function getSearchForm(): array
     {
-        $users = $this->user->findAll();
-        $taskStatuses = $this->taskStatuses->findAll();
-        $responseSearchForm = new ResponseSearchForm();
-        $responseSearchForm->setUsers($users);
-        $responseSearchForm->setTaskStatuses($taskStatuses);
-
-        return $responseSearchForm->toArray();
+        return $this->service->getResponseSearchForm()->toArray();
     }
 }

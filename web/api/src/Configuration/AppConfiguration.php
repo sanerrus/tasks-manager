@@ -14,6 +14,8 @@
 namespace App\Configuration;
 
 use App\Kernel;
+use App\Services\Service;
+use App\Services\ServiceInterface;
 use App\Services\Tasks\TaskExtension\TaskExtension;
 use App\Services\Tasks\TaskExtension\TaskExtensionInterface;
 use App\Services\Tasks\Tasks;
@@ -134,5 +136,15 @@ class AppConfiguration
         $config = Setup::createAnnotationMetadataConfiguration($paths, $isDevMode, null, null, false);
 
         return EntityManager::create($dbParams, $config);
+    }
+
+    /**
+     * Корневой сервис
+     *
+     * @Bean
+     */
+    public function service(): ServiceInterface
+    {
+        return new Service();
     }
 }
