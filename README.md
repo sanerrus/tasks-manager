@@ -64,14 +64,13 @@ web приложение станет доступно по url http://tasks-man
 4. Request and Response - **laminas/laminas-diactoros** (https://github.com/laminas/laminas-diactoros) 
 5. emitter - **narrowspark/http-emitter** (https://github.com/narrowspark/http-emitter)
 6. loger - **monolog/monolog** (https://github.com/Seldaek/monolog)
-7. тесты - **phpunit/phpunit**
 
 ---
 ### Качество кода
 
-1. allysonsilva/php-pre-commit - установленн pre-commit (https://github.com/allysonsilva/php-pre-commit). Подкорректированный файл в корне проекта `pre-commit` необходимо копировать в папку `.git/hooks/`
-2. phpstan/phpstan - установлен статический анализатор кода (https://github.com/phpstan/phpstan)
-3. тесты - папка tests
+1. **allysonsilva/php-pre-commit** - установленн pre-commit (https://github.com/allysonsilva/php-pre-commit). Подкорректированный файл в корне проекта `pre-commit` необходимо копировать в папку `.git/hooks/`
+2. **phpstan/phpstan** - установлен статический анализатор кода (https://github.com/phpstan/phpstan)
+3. **phpunit/phpunit** - тесты
 
 ---
 ### Развитие системы
@@ -80,5 +79,6 @@ web приложение станет доступно по url http://tasks-man
 2. Ролевая модель
 3. Управление пользователями
 4. Управление статусами
-5. ДОбавление проектов и связка задач с проектами
+5. Добавление проектов и связка задач с проектами
 6. Настройка workflow для проектов
+7. использование swoole
