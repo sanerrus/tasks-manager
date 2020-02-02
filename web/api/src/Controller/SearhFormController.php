@@ -18,8 +18,8 @@ class SearhFormController extends AbstractController
      */
     protected ServiceInterface $service;
 
-    public function getSearchForm(): array
+    public function getSearchForm(): iterable
     {
-        return $this->service->getResponseSearchForm()->toArray();
+        return $this->service->getResponseSearchForm()->toIterable();
     }
 }

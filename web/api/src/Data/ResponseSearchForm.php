@@ -5,11 +5,20 @@ namespace App\Data;
 use App\Entity\TaskStatuses;
 use App\Entity\Users;
 
-class ResponseSearchForm
+class ResponseSearchForm implements DataInterface, ResetInterface
 {
-    private array $users;
+    private ?iterable $users;
 
-    private array $taskStatuses;
+    private ?iterable $taskStatuses;
+
+    /**
+     * ResponseSearchForm constructor.
+     */
+    public function __construct()
+    {
+        $this->users = null;
+        $this->taskStatuses = null;
+    }
 
     /**
      * Заполняем поле пользователей.
@@ -50,13 +59,24 @@ class ResponseSearchForm
     }
 
     /**
-     * Преобразуем данные объекта в массив.
+     * {@inheritdoc}
      */
-    public function toArray(): array
+    public function toIterable(): iterable
     {
         return [
             'users' => $this->users,
             'taskStatuses' => $this->taskStatuses,
         ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function reset(): ResetInterface
+    {
+        $this->users = null;
+        $this->taskStatuses = null;
+
+        return $this;
     }
 }
