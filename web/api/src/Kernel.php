@@ -1,7 +1,7 @@
 <?php
 /**
  * Ядро системы
- * PHP version 7.4.1.
+ * PHP version 7.4.
  *
  * @category Application
  *
@@ -28,7 +28,7 @@ use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
- * Ядро приложения
+ * Ядро приложения, точка входа (Singleton)
  * Class Kernel.
  *
  * @category Application
@@ -38,9 +38,10 @@ use Psr\Http\Message\ServerRequestInterface;
  *
  * @see http://www.example.com/Document.tx
  */
-class Kernel
+final class Kernel
 {
-    private const CONFIG_FILE = 'config.yaml';
+    public const CONFIG_FILE = 'config.yaml';
+    public const CONFIG_DIR = 'config';
 
     /**
      * Контейнер приложения.
@@ -56,6 +57,9 @@ class Kernel
      */
     private static Kernel $instance;
 
+    /**
+     * Возвращаем инстанс ядра.
+     */
     public static function getInstance(): Kernel
     {
         if (isset(self::$instance) && self::$instance instanceof self) {
@@ -67,6 +71,9 @@ class Kernel
         return self::$instance;
     }
 
+    /**
+     * Запуск ядра в среде web.
+     */
     public function runHttp(ServerRequestInterface $request): void
     {
         $this->runLoger();
@@ -110,6 +117,9 @@ class Kernel
         return $this->getContainer()->get('appConfig');
     }
 
+    /**
+     * Запуск логирования.
+     */
     private function runLoger()
     {
         $loger = $this->getContainer()->get('loger');

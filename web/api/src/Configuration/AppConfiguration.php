@@ -1,7 +1,7 @@
 <?php
 /**
  * Конфигурация контенера приложения
- * PHP version 7.4.1.
+ * PHP version 7.4.
  *
  * @category Application
  *
@@ -56,7 +56,7 @@ class AppConfiguration
     {
         $config = \yaml_parse_file(
             __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.
-            '..'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'config.yaml'
+            '..'.DIRECTORY_SEPARATOR.Kernel::CONFIG_DIR.DIRECTORY_SEPARATOR.Kernel::CONFIG_FILE
         );
 
         return $config;
