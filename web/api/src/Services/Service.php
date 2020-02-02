@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Services;
-
 
 use App\AbstractInjector;
 use App\Data\ResponseSearchForm;
@@ -40,15 +38,19 @@ class Service extends AbstractInjector implements ServiceInterface
     protected TaskExtensionInterface $taskExtension;
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getResponseSearchForm(): ResponseSearchForm
     {
+        // TODO: реализовать работу со структурой ResponseSearchForm через redis
+
         $users = $this->user->findAll();
         $taskStatuses = $this->taskStatuses->findAll();
         $responseSearchForm = new ResponseSearchForm();
         $responseSearchForm->setUsers($users);
         $responseSearchForm->setTaskStatuses($taskStatuses);
+        $users = null;
+        $taskStatuses = null;
 
         return $responseSearchForm;
     }

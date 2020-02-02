@@ -14,11 +14,11 @@ class ResponseSearchForm
     /**
      * Заполняем поле пользователей.
      *
-     * @param array $users <Users>
+     * @param iterable $users <Users>
      *
      * @return $this
      */
-    public function setUsers(array $users): self
+    public function setUsers(iterable $users): self
     {
         foreach ($users as $user) {
             if (!($user instanceof Users)) {
@@ -34,9 +34,9 @@ class ResponseSearchForm
     /**
      * Заполняем поле статусов задач.
      *
-     * @param array $tasks <TaskStatuses>
+     * @param iterable $tasks <TaskStatuses>
      */
-    public function setTaskStatuses(array $taskStatuses): self
+    public function setTaskStatuses(iterable $taskStatuses): self
     {
         foreach ($taskStatuses as $taskStatus) {
             if (!($taskStatus instanceof TaskStatuses)) {
