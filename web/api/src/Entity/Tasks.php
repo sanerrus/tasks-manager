@@ -1,7 +1,7 @@
 <?php
 /**
  * Сущность задач
- * PHP version 7.4.1.
+ * PHP version 7.4.
  *
  * @category Application
  *
@@ -132,7 +132,7 @@ class Tasks implements EntityInterface
         $this->createAt = $createAt;
     }
 
-    public function getUpdateAt(): \DateTimeInterface
+    public function getUpdateAt(): ?\DateTimeInterface
     {
         return $this->updateAt;
     }
@@ -147,6 +147,14 @@ class Tasks implements EntityInterface
      */
     public function toArray(): array
     {
-        return [];
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'isOpen' => $this->isOpen(),
+            'users' => $this->getUsers(),
+            'taskStatuses' => $this->getTaskStatuses(),
+            'createAt' => $this->getCreateAt()->format('Y-m-d H:i'),
+            'updateAt' => $this->getUpdateAt() ? $this->getUpdateAt()->format('Y-m-d H:i') : '',
+        ];
     }
 }

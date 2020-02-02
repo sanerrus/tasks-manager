@@ -64,6 +64,9 @@ class TaskStatuses implements EntityInterface
         $this->name = $name;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function toArray(): array
     {
         return [

@@ -1,7 +1,7 @@
 <?php
 /**
  * Сущность комментариев к задаче
- * PHP version 7.4.1.
+ * PHP version 7.4.
  *
  * @category Application
  *
@@ -77,7 +77,7 @@ class TaskExtension implements EntityInterface
         $this->description = $description;
     }
 
-    public function getTasks(): Tasks
+    public function getTasks(): int
     {
         return $this->tasks;
     }
@@ -97,7 +97,7 @@ class TaskExtension implements EntityInterface
         $this->createAt = $createAt;
     }
 
-    public function getUpdateAt(): \DateTimeInterface
+    public function getUpdateAt(): ?\DateTimeInterface
     {
         return $this->updateAt;
     }
@@ -112,6 +112,12 @@ class TaskExtension implements EntityInterface
      */
     public function toArray(): array
     {
-        return [];
+        return [
+            'id' => $this->getId(),
+            'description' => $this->getDescription(),
+            'tasks' => $this->getTasks(),
+            'createAt' => $this->getCreateAt()->format('Y-m-d H:i'),
+            'updateAt' => $this->getUpdateAt() ? $this->getUpdateAt()->format('Y-m-d H:i') : '',
+        ];
     }
 }
