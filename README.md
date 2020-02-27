@@ -1,4 +1,5 @@
-# Tasks Manager
+# Tasks Manager<br>
+_*Без фреймворков_
 
 ### Старт приложения
 
